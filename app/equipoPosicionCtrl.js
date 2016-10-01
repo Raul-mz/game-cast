@@ -1,24 +1,24 @@
-app.controller('posicionCtrl', function ($scope, $modal, $filter, Data) {
-    $scope.posicion = {};
-    Data.get('posicion').then(function(data){
-        $scope.posicions = data.data;
+app.controller('equipoPosicionCtrl', function ($scope, $modal, $filter, Data) {
+    $scope.equipo = {};
+    Data.get('equipo').then(function(data){
+        $scope.equipos = data.data;
         console.log(data.message);
     });
-    $scope.changePosicionStatus = function(posicion){
-        posicion.status = (posicion.status=="Activo" ? "Inactivo" : "Activo");
-        Data.put("posicion/"+posicion.id,{status:posicion.status});
+    $scope.changeEquipoPosicionStatus = function(equipo){
+        equipo.status = (equipo.status=="Activo" ? "Inactivo" : "Activo");
+        Data.put("equipo/"+equipo.id,{status:equipo.status});
     };
-    $scope.deletePosicion = function(posicion){
+    $scope.deleteEquipoPosicion = function(equipo){
         if(confirm("¿Esta seguro de eliminar el dato seleccionado?")){
-            Data.delete("posicion/"+posicion.id).then(function(result){
-                $scope.posicions = _.without($scope.posicions, _.findWhere($scope.posicions, {id:posicion.id}));
+            Data.delete("equipo/"+equipo.id).then(function(result){
+                $scope.equipos = _.without($scope.equipos, _.findWhere($scope.equipos, {id:equipo.id}));
             });
         }
     };
     $scope.open = function (p,size) {
         var modalInstance = $modal.open({
-          templateUrl: 'partials/posicionEdit.html',
-          controller: 'posicionEditCtrl',
+          templateUrl: 'partials/equipoPosicionEdit.html',
+          controller: 'equipoPosicionEditCtrl',
           size: size,
           resolve: {
             item: function () {
@@ -28,14 +28,13 @@ app.controller('posicionCtrl', function ($scope, $modal, $filter, Data) {
         });
         modalInstance.result.then(function(selectedObject) {
             if(selectedObject.save == "insert"){
-                $scope.posicions.push(selectedObject);
-                $scope.posicions = $filter('orderBy')($scope.posicions, 'id', 'reverse');
+                $scope.equipos.push(selectedObject);
+                $scope.equipos = $filter('orderBy')($scope.equipos, 'id', 'reverse');
             }else if(selectedObject.save == "update"){
-                p.loguito = selectedObject.loguito;
                 p.jj = selectedObject.jj;
                 p.jg = selectedObject.jg;
                 p.jp = selectedObject.jp;
-                p.div = selectedObject.divi;
+                p.dive = selectedObject.dive;
                 p.ave = selectedObject.ave;
             }
         });
@@ -43,11 +42,12 @@ app.controller('posicionCtrl', function ($scope, $modal, $filter, Data) {
     
  $scope.columns = [
                     {text:"ID",predicate:"id",sortable:true,dataType:"number"},
-                    {text:"loguito",predicate:"loguito",sortable:true},
+                    {text:"Nombre",predicate:"nombre",sortable:true},
+                    {text:"Imagen",predicate:"imagen",sortable:true},
                     {text:"JJ",predicate:"jj",sortable:true},
                     {text:"JG",predicate:"jg",sortable:true},
                     {text:"JP",predicate:"jp",sortable:true},
-                    {text:"DIV",predicate:"divi",sortable:true},
+                    {text:"DIV",predicate:"dive",sortable:true},
                     {text:"AVE",predicate:"ave",sortable:true},
                     {text:"Status",predicate:"status",sortable:true},
                     {text:"Acción",predicate:"",sortable:false}
@@ -56,9 +56,9 @@ app.controller('posicionCtrl', function ($scope, $modal, $filter, Data) {
 });
 
 
-app.controller('posicionEditCtrl', function ($scope, $modalInstance, item, Data) {
+app.controller('equipoPosicionEditCtrl', function ($scope, $modalInstance, item, Data) {
 
-  $scope.posicion = angular.copy(item);
+  $scope.equipo = angular.copy(item);
         
         $scope.cancel = function () {
             $modalInstance.dismiss('Close');
@@ -68,25 +68,26 @@ app.controller('posicionEditCtrl', function ($scope, $modalInstance, item, Data)
 
         var original = item;
         $scope.isClean = function() {
-            return angular.equals(original, $scope.posicion);
+            return angular.equals(original, $scope.equipo);
         }
-        $scope.savePosicion = function (posicion) {
-            posicion.uid = $scope.uid;
-            if(posicion.id > 0){
-                Data.put('posicion/'+posicion.id, posicion).then(function (result) {
+        $scope.saveEquipoPosicion = function (equipo) {
+            equipo.uid = $scope.uid;
+            if(equipo.id > 0){
+                Data.put('equipo/'+equipo.id, equipo).then(function (result) {
                     if(result.status != 'error'){
-                        var x = angular.copy(posicion);
+                        var x = angular.copy(equipo);
                         x.save = 'update';
                         $modalInstance.close(x);
                     }else{
                         console.log(result);
+                        console.log(data.message);
                     }
                 });
             }else{
-                posicion.status = 'Activo';
-                Data.post('posicion', posicion).then(function (result) {
+                equipo.status = 'Activo';
+                Data.post('equipo', equipo).then(function (result) {
                     if(result.status != 'error'){
-                        var x = angular.copy(posicion);
+                        var x = angular.copy(equipo);
                         x.save = 'insert';
                         x.id = result.data;
                         $modalInstance.close(x);

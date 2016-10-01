@@ -98,7 +98,7 @@ $app->delete('/estadio/:id', function($id) {
 // Equipo
 $app->get('/equipo', function() { 
     global $db;
-    $rows = $db->select("equipo","id,nombre,imagen,status",array());
+    $rows = $db->select("equipo","id,nombre,imagen,status,jj,jg,jp,dive,ave",array());
     echoResponse(200, $rows);
 });
 
@@ -130,6 +130,8 @@ $app->delete('/equipo/:id', function($id) {
         $rows["message"] = "Información eliminada satisfactoriamente";
     echoResponse(200, $rows);
 });
+
+
 
 // jugador
 $app->get('/jugador', function() { 
@@ -206,42 +208,48 @@ $app->delete('/moderador/:id', function($id) {
 });
 
 
-// posicion
-$app->get('/posicion', function() { 
+// Juego
+$app->get('/accion', function() { 
     global $db;
-  $rows = $db->select("posicion","id,loguito,jj,jg,jp,div,ave,status",array());
-    echoResponse(200, $rows);
+  $rows = $db->selectSql("SELECT accion.id,accion.fecha,
+    accion.casa,accion.visitante,estadio.nombre as nombreEstadio,moderador.nombre as nombreModerador,
+    moderador.apellido as nombreApellido,accion.carreras,accion.hit,accion.errores 
+    FROM accion,equipo,estadio,moderador 
+    WHERE accion.casa=equipo.id AND
+    accion.visitante=equipo.id AND
+    accion.id_estadio=estadio.id AND
+    accion.id_moderador=moderador.id");   
+      echoResponse(200, $rows);
 });
 
-$app->post('/posicion', function() use ($app) { 
+$app->post('/accion', function() use ($app) { 
     $data = json_decode($app->request->getBody());
-    $mandatory = array('jj');
+    $mandatory = array('id');
     global $db;
-    $rows = $db->insert("posicion", $data, $mandatory);
+    $rows = $db->insert("accion", $data, $mandatory);
     if($rows["status"]=="success")
-        $rows["message"] = "Información agregada satisfactoriamente";
+        $rows["message"] = "Se ha agregado satisfactoriamente";
     echoResponse(200, $rows);
 });
 
-$app->put('/posicion/:id', function($id) use ($app) { 
+$app->put('/accion/:id', function($id) use ($app) { 
     $data = json_decode($app->request->getBody());
     $condition = array('id'=>$id);
     $mandatory = array();
     global $db;
-    $rows = $db->update("posicion", $data, $condition, $mandatory);
+    $rows = $db->update("accion", $data, $condition, $mandatory);
     if($rows["status"]=="success")
         $rows["message"] = "Información actualizada correctamente.";
     echoResponse(200, $rows);
 });
 
-$app->delete('/posicion/:id', function($id) { 
+$app->delete('/accion/:id', function($id) { 
     global $db;
-    $rows = $db->delete("posicion", array('id'=>$id));
+    $rows = $db->delete("accion", array('id'=>$id));
     if($rows["status"]=="success")
-        $rows["message"] = "Información eliminada satisfactoriamente";
+        $rows["message"] = "Eliminado satisfactoriamente";
     echoResponse(200, $rows);
 });
-
 
 /*********************************/
 function echoResponse($status_code, $response) {

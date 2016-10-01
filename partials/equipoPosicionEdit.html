@@ -1,0 +1,42 @@
+    <button type="button" class="close" ng-click="cancel();">
+        <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
+    </button>
+    <div class="modal-header">
+        <h3 class="modal-title">{{equipo.nombre}}</h3>
+    </div>
+    <div class="modal-body">
+        <form name="equipo_form" class="form-horizontal" role="form" novalidate>
+            <form-element label="JJ" mod="jj">
+                <input type="text" class="form-control" name="jj" placeholder="JJ" ng-model="equipo.jj" focus/>
+            </form-element>
+            <form-element label="JG" mod="jg">
+                <input type="text" class="form-control" name="jg" placeholder="jg" ng-model="equipo.jg" focus/>
+            </form-element>
+            <form-element label="JP" mod="jp">
+                <input type="text" class="form-control" name="jp" placeholder="jp" ng-model="equipo.jp" focus/>
+            </form-element>
+            <form-element label="DIV" mod="dive">
+                <input type="text" class="form-control" name="dive" placeholder="DIV" ng-model="equipo.dive" focus/>
+            </form-element>
+            <form-element label="AVE" mod="ave">
+                <input type="text" class="form-control" name="ave" placeholder="AVE" ng-model="equipo.ave" focus/>
+            </form-element>
+            
+            <div class="space"></div>
+            <div class="space-4"></div>
+            <div class="modal-footer">
+                <form-element label="">
+                    <div class="text-right">
+                        <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancelar</a>
+                        <button ng-click="saveEquipoPosicion(equipo);"
+                                ng-disabled="equipo_form.$invalid || enableUpdate"
+                                class="btn btn-sm btn-primary"
+                                type="submit">
+                            <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                        </button>
+                    </div>
+                </form-element>
+            </div>
+        </form>
+    </div>
+

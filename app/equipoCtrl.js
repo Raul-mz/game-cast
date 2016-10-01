@@ -2,6 +2,7 @@ app.controller('equipoCtrl', function ($scope, $modal, $filter, Data) {
     $scope.equipo = {};
     Data.get('equipo').then(function(data){
         $scope.equipos = data.data;
+        console.log(data.message);
     });
     $scope.changeEquipoStatus = function(equipo){
         equipo.status = (equipo.status=="Activo" ? "Inactivo" : "Activo");
@@ -71,6 +72,7 @@ app.controller('equipoEditCtrl', function ($scope, $modalInstance, item, Data) {
                         $modalInstance.close(x);
                     }else{
                         console.log(result);
+                        console.log(data.message);
                     }
                 });
             }else{

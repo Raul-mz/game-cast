@@ -41,6 +41,32 @@ class dbHelper {
         }
         return $response;
     }
+    function selectSql($table){
+        try{
+            $a = array();
+            $w = "";
+            foreach ($where as $key => $value) {
+                $w .= " and " .$key. " like :".$key;
+                $a[":".$key] = $value;
+            }
+            $stmt = $this->db->prepare($table);
+            $stmt->execute($a);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(count($rows)<=0){
+                $response["status"] = "warning";
+                $response["message"] = "Datos no encontrados";
+            }else{
+                $response["status"] = "success";
+                $response["message"] = "Los datos seleccionados de la base de datos";
+            }
+                $response["data"] = $rows;
+        }catch(PDOException $e){
+            $response["status"] = "error";
+            $response["message"] = 'Seleccion Fallida: ' .$e->getMessage();
+            $response["data"] = null;
+        }
+        return $response;
+    }
 
      function select2Table($table1,$table2, $columns, $where, $columnID1,$columnID2){
         try{
