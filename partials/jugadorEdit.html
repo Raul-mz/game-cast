@@ -1,0 +1,65 @@
+  <!DOCTYPE html>
+<html ng-app="selectsD">
+<head>
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+    <button type="button" class="close" ng-click="cancel();">
+        <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
+    </button>
+    <div class="modal-header">
+        <h3 class="modal-title">Jugador {{jugador.nombre}}</h3>
+    </div>
+    <div class="modal-body">
+        <form name="jugador_form" class="form-horizontal" role="form" novalidate>
+            <form-element label="Nombre" mod="nombre">
+                <input type="text" class="form-control" name="nombre" placeholder="NOMBRE" ng-model="jugador.nombre" focus/>
+            </form-element>
+            <form-element label="Posición" mod="posicion">
+                <select  name="posicion" class="form-control" ng-model="jugador.posicion" title="Seleccione la posición del jugador" required> 
+                <option value="">{Seleccione}</option>
+                <option value="Pitcher">Pitcher</option> 
+                <option value="Catcher">Catcher</option>
+                <option value="1ra Base">1ra Base</option>
+                <option value="2da Base">2da Base</option>
+                <option value="3ra Base">3ra Base</option>
+                <option value="Short Stop">Short Stop</option>
+                <option value="Left Fielder">Left Fielder</option>
+                <option value="Center Fielder">Center Fielder</option>
+                <option value="Right Fielder">Right Fielder</option>
+                <option value="Bateador Designado">Bateador Designado</option>
+        </select>
+            </form-element>
+            <form-element label="Equipo" mod="id_equipo">
+            <div ng-app="selectsD" id="n" ng-controller="controllerForm">
+                 <fieldset ng-controller="controllerForm">
+                        
+                <select ng-model="jugador.id_equipo" name="id_equipo" class="form-control" >
+                <option ng-repeat="equipo in JSONEquipos" ng-value="{{equipo.id}}">{{equipo.nombre}}</option>
+                             </select>
+</fieldset>
+                             </div>
+            </form-element>
+            
+            <div class="space"></div>
+            <div class="space-4"></div>
+            <div class="modal-footer">
+                <form-element label="">
+                    <div class="text-right">
+                        <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancelar</a>
+                        <button ng-click="saveJugador(jugador);"
+                                ng-disabled="jugador_form.$invalid || enableUpdate"
+                                class="btn btn-sm btn-primary"
+                                type="submit">
+                            <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                        </button>
+                    </div>
+                </form-element>
+            </div>
+        </form>
+    </div>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>-->
+</html>

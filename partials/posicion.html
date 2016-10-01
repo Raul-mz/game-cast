@@ -1,0 +1,34 @@
+<h4 class="blog-post-title">Posiciones</h4>
+<hr/>
+<button type="button" class="btn btn-danger fa fa-plus" ng-click="open(posicion);">&nbsp;Agregar</button>
+
+<div class="table-responsive">
+<div class="panel panel-primary">
+  <div class="panel-heading">Posiciones de Equipos
+      
+    </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+    <tr ng-show="posicions.length==0"><td style="vertical-align:middle;"><i class="fa fa-ban fa-3x"></i>&nbsp;Datos no encontrado</td></tr>
+    <tr ng-hide="posicions.length>-1"><td style="vertical-align:middle;"><i class="fa fa-cog fa-3x fa-spin"></i>&nbsp;Cargando</td></tr>
+    
+    <tr><th ng-repeat="c in columns">{{c.text}}</th></tr>
+
+    <tr ng-repeat="c in posicions | orderBy:'-id'" id="{{c.id}}" animate-on-change='c.id' ng-animate=" 'animate'">
+        <td>{{c.loguito}}</td><td>{{c.jj}}</td><td>{{c.jg}}</td><td>{{c.jp}}</td><td>{{c.div}}</td><td>{{c.ave}}</td>
+                <td>
+            <button class="btn" ng-class="{Activo:'btn-success', Inactivo:''}[c.status]" ng-click="changePosicionStatus(c);">{{c.status}}</button>
+        </td>
+
+        <td style="width:100px">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default fa fa-edit" ng-click="open(c);"></button>
+              <button type="button" class="btn btn-danger fa fa-trash-o" ng-click="deletePosicion(c);"></button>
+            </div>
+        </td>
+    </tr>
+    </table>
+</div>
+</div>
+</div>
+              

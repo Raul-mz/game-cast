@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<body ng-cloak="">
+  <title>Administrador de Juegos</title>
+  <meta charset="UTF-8"> 
+  <meta name="Description" content="Administrador Beisbol">
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/custom.css" type="text/css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <div class="col-md-10 col-md-offset-1 ">
+                    <img src="images/logo.png">
+                    <img src="images/logo-cardenales.png">
+                    <img src="images/Logo_peq_Aguilas.png">
+                    <img src="images/Logo_peq_Bravos.png">
+                    <img src="images/Logo_peq_Caribes.png">
+                    <img src="images/Logo_peq_Leones.png">
+                    <img src="images/Logo_peq_Navegantes.png">
+                    <img src="images/Logo_peq_Tiburones.png">
+                    <img src="images/Logo_peq_Tigres.png">  
+                    </div>
+
+  <div class="blog-masthead">
+      <div class="container">
+        <nav class="blog-nav">
+          <a class="blog-nav-item active" href="#">Jugadas</a>
+          <a class="blog-nav-item pull-right" href="moderador.html">Moderadores</a>
+          <a class="blog-nav-item pull-right" href="estadio.html">Estadio</a>
+          <a class="blog-nav-item pull-right" href="equipos.html">Equipos</a>
+          <a class="blog-nav-item pull-right" href="jugador.html">Jugadores</a>
+          <a class="blog-nav-item pull-right" href="posiciones.html">Posiciones</a>
+          <a class="blog-nav-item pull-right" href="juego.html">Juegos</a>
+          <a class="blog-nav-item pull-right" href="envivo.html">Pizarra</a>
+          <a class="blog-nav-item pull-right" href="index.html">Inicio</a>
+          
+          
+          
+        </nav>
+      </div>
+    </div>
+
+<div class="container">
+    <div class="page-content">
+      <div ng-view="" id="ng-view"></div>
+    </div>
+</div>
+
+<!-- Libraries -->
+<script src="js/angular.min.js"></script>
+<script src="js/ui-bootstrap-tpls-0.11.2.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="js/angular-animate.min.js"></script>
+
+<!-- AngularJS custom codes -->
+<script src="app/appjugada.js"></script>
+<script src="app/data.js"></script>
+<script src="app/directives.js"></script>
+<script src="app/jugadaCtrl.js"></script>
+
+<!-- Some Bootstrap Helper Libraries -->
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/underscore.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
