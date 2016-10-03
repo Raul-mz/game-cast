@@ -41,15 +41,13 @@ app.controller('equipoPosicionCtrl', function ($scope, $modal, $filter, Data) {
     };
     
  $scope.columns = [
-                    {text:"ID",predicate:"id",sortable:true,dataType:"number"},
                     {text:"Nombre",predicate:"nombre",sortable:true},
-                    {text:"Imagen",predicate:"imagen",sortable:true},
+                    {text:"",predicate:"imagen",sortable:true},
                     {text:"JJ",predicate:"jj",sortable:true},
                     {text:"JG",predicate:"jg",sortable:true},
                     {text:"JP",predicate:"jp",sortable:true},
                     {text:"DIV",predicate:"dive",sortable:true},
                     {text:"AVE",predicate:"ave",sortable:true},
-                    {text:"Status",predicate:"status",sortable:true},
                     {text:"Acción",predicate:"",sortable:false}
                 ];
 

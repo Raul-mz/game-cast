@@ -8,6 +8,9 @@ $app = \Slim\Slim::getInstance();
 $db = new dbHelper();
 
 /**
+* git pull -> para descargar
+* git commit -m "mensaje del cambio"
+* git push -> sube
  * Database Helper Function templates
  */
 /*
@@ -213,7 +216,7 @@ $app->get('/accion', function() {
     global $db;
   $rows = $db->selectSql("SELECT accion.id,accion.fecha,
     accion.casa,accion.visitante,estadio.nombre as nombreEstadio,moderador.nombre as nombreModerador,
-    moderador.apellido as nombreApellido,accion.carreras,accion.hit,accion.errores 
+    moderador.apellido as Apellido,accion.carreras,accion.hit,accion.errores 
     FROM accion,equipo,estadio,moderador 
     WHERE accion.casa=equipo.id AND
     accion.visitante=equipo.id AND
@@ -250,6 +253,87 @@ $app->delete('/accion/:id', function($id) {
         $rows["message"] = "Eliminado satisfactoriamente";
     echoResponse(200, $rows);
 });
+
+
+//Inning
+$app->get('/inning', function() { 
+    global $db;
+  $rows = $db->selectSql("SELECT inning.id,inning.id_accion,
+    inning.id_equipos,inning.inning as nroinning,inning.id_jugador,inning.pitchet,
+    inning.id_jugada,jugador.nombre as nombreJ,equipo.nombre as nombreE,jugada.nombre as nombreJugada 
+    FROM inning,accion,equipo,jugador,jugada 
+    WHERE inning.id_accion=accion.id AND
+    inning.id_equipos=equipo.id AND
+    inning.id_jugador=jugador.id AND
+    inning.id_jugada=jugada.id");   
+      echoResponse(200, $rows);
+});
+
+$app->post('/inning', function() use ($app) { 
+    $data = json_decode($app->request->getBody());
+    $mandatory = array('id');
+    global $db;
+    $rows = $db->insert("inning", $data, $mandatory);
+    if($rows["status"]=="success")
+        $rows["message"] = "Se ha agregado satisfactoriamente";
+    echoResponse(200, $rows);
+});
+
+$app->put('/inning/:id', function($id) use ($app) { 
+    $data = json_decode($app->request->getBody());
+    $condition = array('id'=>$id);
+    $mandatory = array();
+    global $db;
+    $rows = $db->update("inning", $data, $condition, $mandatory);
+    if($rows["status"]=="success")
+        $rows["message"] = "Información actualizada correctamente.";
+    echoResponse(200, $rows);
+});
+
+$app->delete('/inning/:id', function($id) { 
+    global $db;
+    $rows = $db->delete("inning", array('id'=>$id));
+    if($rows["status"]=="success")
+        $rows["message"] = "Eliminado satisfactoriamente";
+    echoResponse(200, $rows);
+});
+
+// usuario
+$app->get('/usuario', function() { 
+    global $db;
+    $rows = $db->select("usuario","id,nombre,correo,usuario,clave,status",array());
+    echoResponse(200, $rows);
+});
+
+$app->post('/usuario', function() use ($app) { 
+    $data = json_decode($app->request->getBody());
+    $mandatory = array('nombre');
+    global $db;
+    $rows = $db->insert("usuario", $data, $mandatory);
+    if($rows["status"]=="success")
+        $rows["message"] = "Información agregada satisfactoriamente";
+    echoResponse(200, $rows);
+});
+
+$app->put('/usuario/:id', function($id) use ($app) { 
+    $data = json_decode($app->request->getBody());
+    $condition = array('id'=>$id);
+    $mandatory = array();
+    global $db;
+    $rows = $db->update("usuario", $data, $condition, $mandatory);
+    if($rows["status"]=="success")
+        $rows["message"] = "Información actualizada correctamente.";
+    echoResponse(200, $rows);
+});
+
+$app->delete('/usuario/:id', function($id) { 
+    global $db;
+    $rows = $db->delete("usuario", array('id'=>$id));
+    if($rows["status"]=="success")
+        $rows["message"] = "Información eliminada satisfactoriamente";
+    echoResponse(200, $rows);
+});
+
 
 /*********************************/
 function echoResponse($status_code, $response) {

@@ -30,7 +30,14 @@ app.controller('accionCtrl', function ($scope, $modal, $filter, Data) {
                 $scope.accions.push(selectedObject);
                 $scope.accions = $filter('orderBy')($scope.accions, 'id', 'reverse');
             }else if(selectedObject.save == "update"){
-                p.nombre = selectedObject.nombre;
+                p.fecha = selectedObject.fecha;
+                p.casa = selectedObject.casa;
+                p.visitante = selectedObject.visitante;
+                p.id_estadio = selectedObject.id_estadio;
+                p.id_moderador = selectedObject.id_moderador;
+                p.carreras = selectedObject.carreras;
+                p.hit = selectedObject.hit;
+                p.errores = selectedObject.errores;
                 
             }
         });
@@ -38,7 +45,14 @@ app.controller('accionCtrl', function ($scope, $modal, $filter, Data) {
     
  $scope.columns = [
                     {text:"ID",predicate:"id",sortable:true,dataType:"number"},
-                    {text:"nombre",predicate:"nombre",sortable:true},
+                    {text:"Fecha",predicate:"fecha",sortable:true},
+                    {text:"Casa",predicate:"casa",sortable:true},
+                    {text:"Visitante",predicate:"visitante",sortable:true},
+                    {text:"Estadio",predicate:"id_estadio",sortable:true},
+                    {text:"Moderador",predicate:"id_moderador",sortable:true},
+                    {text:"Carreras",predicate:"carreras",sortable:true},
+                    {text:"Hit",predicate:"hit",sortable:true},
+                    {text:"Errores",predicate:"errores",sortable:true},
                     {text:"Status",predicate:"status",sortable:true},
                     {text:"Action",predicate:"",sortable:false}
                 ];

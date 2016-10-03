@@ -1,12 +1,9 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<body ng-cloak="">
+
 <link href="css_tabla/style.css" rel="stylesheet" type="text/css" >
-<?php 
-
-	require('../Connections.php'); 
-
-	require("../funciones.php"); 
-
-?>
-
+<div ng-view="" id="ng-view">
 <div class="resultados">
 <table width="100%">
 
@@ -21,33 +18,43 @@
     </div>
 </div>
 
-<?
+    <tr><th ng-repeat="c in columns">{{c.text}}</th></tr>
 
-$result=mysql_query("select * from tablabeisbol order by posicion asc"); 
-			$totalregistros=mysql_num_rows($result); 
-			for ($i=1;$i<=$totalregistros;$i++){
-			$row=mysql_fetch_array($result);
-			$posicion=$row['posicion'];
-			$equipo=$row['equipo'];
-			$idbeisbol=$row['idbeisbol'];
-			$jjj=$row['jjj'];
-			$jjp=$row['jjp'];
-			$jjg=$row['jjg'];
-			$jdiv=$row['jdiv'];
-			$ave=$row['ave'];
-			$logo=$row['logo'];
-?>
+    <tr ng-repeat="c in equipos | filter:filterEquipo | orderBy:'-jg'" id="{{c.jg}}" animate-on-change='c.nombre' ng-animate=" 'animate'">
+
 
 <tr>
  <td>
-     <div class="celda-img"><img src="loguitos/<?php echo $logo;?>" /></div>
-     <div class="celda1"><?php echo $jjj;?></div><div class="celda2"><?php echo $jjg;?></div><div class="celda1"><?php echo $jjp;?></div>
-	 <div class="celda2"><?php echo $jdiv;?></div><div class="celda1"><?php echo $ave;?></div>
+     <div class="celda-img">{{c.nombre}}{{c.logo}}</div>
+     <div class="celda1">{{c.jj}}</div>
+     <div class="celda2">{{c.jg}}</div>
+     <div class="celda1">{{c.jp}}</div>
+	 <div class="celda2">{{c.dive}}</div>
+	 <div class="celda1">{{c.ave}}</div>
   </td>   
-</tr>  
-
-<?php
-}
-?>
+</tr> 
+</tr>
 </table> 
 </div>
+<script src="js/angular.min.js"></script>
+<script src="js/ui-bootstrap-tpls-0.11.2.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="js/angular-animate.min.js"></script>
+
+<!-- AngularJS custom codes -->
+<script src="app/appequipoPosicion.js"></script>
+<script src="app/data.js"></script>
+<script src="app/directives.js"></script>
+<script src="app/equipoPosicionCtrl.js"></script>
+
+<!-- Some Bootstrap Helper Libraries -->
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/underscore.min.js"></script>
+<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+<script src="js/ie10-viewport-bug-workaround.js"></script>
+</table> 
+</div>
+</body>
+</html>

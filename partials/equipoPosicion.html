@@ -1,6 +1,5 @@
 <h4 class="blog-post-title">Posiciones de Equipos</h4>
 <hr/>
-<button type="button" class="btn btn-danger fa fa-plus" ng-click="open(equipo);">&nbsp;Agregar</button>
 
 <div class="table-responsive">
 <div class="panel panel-primary">
@@ -22,17 +21,14 @@
     <tr><th ng-repeat="c in columns">{{c.text}}</th></tr>
 
     <tr ng-repeat="c in equipos | filter:filterEquipo | orderBy:'-jg'" id="{{c.jg}}" animate-on-change='c.nombre' ng-animate=" 'animate'">
-                <td>{{c.id}}</td>
+                
                 <td>{{c.nombre}}</td>
-                <td>{{c.logo}}</td>
+                <td><img src="loguitos/{{c.imagen}}"></td>
                 <td>{{c.jj}}</td>
                 <td>{{c.jg}}</td>
                 <td>{{c.jp}}</td>
                 <td>{{c.dive}}</td>
                 <td>{{c.ave}}</td>
-        <td>
-            <button class="btn" ng-class="{Activo:'btn-success', Inactivo:''}[c.status]" ng-click="changeEquipoStatus(c);">{{c.status}}</button>
-        </td>
         <td style="width:100px">
             <div class="btn-group">
               <button type="button" class="btn btn-default fa fa-edit" ng-click="open(c);"></button>

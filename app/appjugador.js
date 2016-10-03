@@ -18,12 +18,7 @@ var angularTodo = angular.module('selectsD', []);
 function controllerForm($scope, $http) {
       $scope.JSONEquipos = [ ];
       obtenerEquipos($http,$scope);
-      // EVENTO QUE GENERA BOTON LIMPIAR
-      $scope.limpiar = function() {
-        limpiarForm($scope);
-      };
-      // EVENTO QUE GENERA LA DIRECTIVA ng-change
-  
+      
  } 
   function obtenerEquipos($http,$scope){
         console.log('Error:s dddddddddddddddddddaaaa');
@@ -39,6 +34,4 @@ function controllerForm($scope, $http) {
             console.log('Error:s ' + data);
         });    
   }
-  function limpiarForm($scope){
-        $scope.selEquipos = '';
-  }
+  

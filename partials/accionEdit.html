@@ -1,13 +1,68 @@
+  <!DOCTYPE html>
+<html ng-app="selectsD">
+<head>
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
     <button type="button" class="close" ng-click="cancel();">
         <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
     </button>
     <div class="modal-header">
-        <h3 class="modal-title">Jugada {{jugada.nombre}}</h3>
+        <h3 class="modal-title">{{accion.casa}} - {{accion.visitante}}</h3>
     </div>
     <div class="modal-body">
-        <form name="jugada_form" class="form-horizontal" role="form" novalidate>
-            <form-element label="Nombre" mod="nombre">
-                <input type="text" class="form-control" name="nombre" placeholder="NOMBRE" ng-model="jugada.nombre" focus/>
+        <form name="accion_form" class="form-horizontal" role="form" novalidate>
+            <form-element label="Fecha" mod="fecha">
+                <input type="date" class="form-control" name="fecha" placeholder="FECHA DEL JUEGO" ng-model="accion.fecha" focus/>
+            </form-element>
+           <form-element label="Equipo Home" mod="casa">
+            <div ng-app="selectsD" id="n" ng-controller="controllerForm">
+                 <fieldset ng-controller="controllerForm">
+                        
+                <select ng-model="accion.casa" name="casa" class="form-control" >
+                <option ng-repeat="equipo in JSONEquipos" ng-value="{{equipo.id}}">{{equipo.nombre}}</option>
+                             </select>
+                </fieldset>
+            <form-element label="Equipo Visitante" mod="visitante">
+            <div ng-app="selectsD" id="n" ng-controller="controllerForm">
+                 <fieldset ng-controller="controllerForm">
+                        
+                <select ng-model="accion.visitante" name="visitante" class="form-control" >
+                <option ng-repeat="equipo in JSONEquipos" ng-value="{{equipo.id}}">{{equipo.nombre}}</option>
+                             </select>
+            </fieldset>
+            <form-element label="Estadio" mod="estadio">
+            <div ng-app="selectsEstadio" id="n" ng-controller="controllerForm">
+                 <fieldset ng-controller="controllerForm">
+                        
+                <select ng-model="accion.id_estadio" name="id_estadio" class="form-control" >
+                <option ng-repeat="estadio in JSONEstadio" ng-value="{{estadio.id}}">{{estadio.nombre}}</option>
+                             </select>
+            </fieldset>
+            <form-element label="Moderador" mod="moderador">
+            <div ng-app="selectsModerador" id="n" ng-controller="controllerForm">
+                 <fieldset ng-controller="controllerForm">
+                        
+                <select ng-model="accion.id_moderador" name="id_moderador" class="form-control" >
+                <option ng-repeat="moderador in JSONModerador" ng-value="{{moderador.id}}">{{moderador.nombre}}{{moderador.apellido}}</option>
+                             </select>
+            </fieldset>
+            
+            <form-element label="Carreras" mod="carreras">
+                <input type="text" class="form-control" name="carreras" placeholder="CARRERAS" ng-model="accion.carreras" focus/>
+            </form-element>
+            <form-element label="Hit" mod="hit">
+                <input type="text" class="form-control" name="hit" placeholder="HIT" ng-model="accion.hit" focus/>
+            </form-element>
+            <form-element label="Errores" mod="errores">
+                <input type="text" class="form-control" name="errores" placeholder="ERRORES" ng-model="accion.errores" focus/>
+            </form-element>
+
+
+                             </div>
             </form-element>
             
             <div class="space"></div>
@@ -16,8 +71,8 @@
                 <form-element label="">
                     <div class="text-right">
                         <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancelar</a>
-                        <button ng-click="saveJugada(jugada);"
-                                ng-disabled="jugada_form.$invalid || enableUpdate"
+                        <button ng-click="saveAccion(accion);"
+                                ng-disabled="accion_form.$invalid || enableUpdate"
                                 class="btn btn-sm btn-primary"
                                 type="submit">
                             <i class="ace-icon fa fa-check"></i>{{buttonText}}
@@ -27,4 +82,5 @@
             </div>
         </form>
     </div>
-
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>-->
+</html>

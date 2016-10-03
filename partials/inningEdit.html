@@ -1,0 +1,101 @@
+  <!DOCTYPE html>
+<html ng-app="selectsD">
+<head>
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+    <button type="button" class="close" ng-click="cancel();">
+        <i class="fa fa-times-circle-o" style="margin:10px;color:blue;"></i>
+    </button>
+    <div class="modal-header">
+        <h3 class="modal-title">Inning {{inning.nroinning}}</h3>
+    </div>
+    <div class="modal-body">
+        <form name="inning_form" class="form-horizontal" role="form" novalidate>
+            <form-element label="Inning" mod="inning">
+                <input type="text" class="form-control" name="inning" placeholder="INNING" ng-model="inning.nroinning" focus/>
+            </form-element>
+            <form-element label="Posición" mod="posicion">
+                <select  name="posicion" class="form-control" ng-model="inning.posicion" title="Seleccione la posición del inning" required> 
+                <option value="">{Seleccione}</option>
+                <option value="Pitcher">Pitcher</option> 
+                <option value="Catcher">Catcher</option>
+                <option value="1ra Base">1ra Base</option>
+                <option value="2da Base">2da Base</option>
+                <option value="3ra Base">3ra Base</option>
+                <option value="Short Stop">Short Stop</option>
+                <option value="Left Fielder">Left Fielder</option>
+                <option value="Center Fielder">Center Fielder</option>
+                <option value="Right Fielder">Right Fielder</option>
+                <option value="Bateador Designado">Bateador Designado</option>
+        </select>
+            </form-element>
+            <form-element label="Lanzador" mod="lanzador">
+                <div ng-app="selectsD" id="n" ng-controller="controllerForm">
+                 <fieldset ng-controller="controllerForm">
+                        
+                    <select ng-model="inning.nombreJ" name="nombreJ" class="form-control" >
+                        <option ng-repeat="jugador in JSONjugadors" ng-value="{{jugador.id_jugador}}">{{jugador.nombre}}</option>
+                    </select>
+                 </fieldset>
+                </div>
+            </form-element>
+
+            <form-element label="Pitcher" mod="pitcher">
+                <div ng-app="selectsD" id="n" ng-controller="controllerForm">
+                 <fieldset ng-controller="controllerForm">
+                        
+                    <select ng-model="inning.pitchet" name="nombreJ" class="form-control" >
+                        <option ng-repeat="jugador in JSONjugadors" ng-value="{{jugador.id_jugador}}">{{jugador.nombre}}</option>
+                    </select>
+                 </fieldset>
+                </div>
+            </form-element>
+
+            <form-element label="Jugada" mod="jugada">
+                <div ng-app="selectsD" id="n" ng-controller="controllerForm">
+                 <fieldset ng-controller="controllerForm">
+                        
+                    <select ng-model="inning.id_jugada" name="id_jugada" class="form-control" >
+                        <option ng-repeat="jugada in JSONjugadas" ng-value="{{jugada.id}}">{{jugada.nombre}}</option>
+                    </select>
+                 </fieldset>
+                </div>
+            </form-element>
+
+            <form-element label="Strike" mod="strike">
+            <label><input type="checkbox" ng-model="">1</label>
+            <label><input type="checkbox" ng-model="">2</label>
+            <label><input type="checkbox" ng-model="">3</label>
+            </form-element>
+
+            <form-element label="Boleto" mod="boleto">
+            <label><input type="checkbox" ng-model="">1</label>
+            <label><input type="checkbox" ng-model="">2</label>
+            <label><input type="checkbox" ng-model="">3</label>
+            <label><input type="checkbox" ng-model="">4</label>
+            </form-element>
+
+
+            <div class="space"></div>
+            <div class="space-4"></div>
+            <div class="modal-footer">
+                <form-element label="">
+                    <div class="text-right">
+                        <a class="btn btn-sm" ng-click="cancel()"><i class="ace-icon fa fa-reply"></i>Cancelar</a>
+                        <button ng-click="saveInning(inning);"
+                                ng-disabled="inning_form.$invalid || enableUpdate"
+                                class="btn btn-sm btn-primary"
+                                type="submit">
+                            <i class="ace-icon fa fa-check"></i>{{buttonText}}
+                        </button>
+                    </div>
+                </form-element>
+            </div>
+        </form>
+    </div>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>-->
+</html>

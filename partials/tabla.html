@@ -1,0 +1,32 @@
+<div class="resultados">
+<table width="100%">
+
+<div class="tabla100">
+    <div>
+        <div class="celda-img">&nbsp;</div>
+        <div class="celda1"><b>JJ</b></div>
+        <div class="celda2"><b>JG</b></div>
+        <div class="celda1"><b>JP</b></div>
+        <div class="celda2"><b>DIF</b></div>
+        <div class="celda1"><b>AVE</b></div>
+    </div>
+</div>
+
+    <tr><th ng-repeat="c in columns">{{c.text}}</th></tr>
+
+    <tr ng-repeat="c in equipos | orderBy:'-jg'" id="{{c.jg}}">
+
+
+<tr>
+ <td>
+     <div class="celda-img">{{c.nombre}}{{c.logo}}</div>
+     <div class="celda1">{{c.jj}}</div>
+     <div class="celda2">{{c.jg}}</div>
+     <div class="celda1">{{c.jp}}</div>
+	 <div class="celda2">{{c.dive}}</div>
+	 <div class="celda1">{{c.ave}}</div>
+  </td>   
+</tr> 
+</tr>
+</table> 
+</div>

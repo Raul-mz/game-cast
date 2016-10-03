@@ -1,24 +1,24 @@
-app.controller('equipoCtrl', function ($scope, $modal, $filter, Data) {
-    $scope.equipo = {};
-    Data.get('equipo').then(function(data){
-        $scope.equipos = data.data;
+app.controller('usuarioCtrl', function ($scope, $modal, $filter, Data) {
+    $scope.usuario = {};
+    Data.get('usuario').then(function(data){
+        $scope.usuarios = data.data;
         console.log(data.message);
     });
-    $scope.changeEquipoStatus = function(equipo){
-        equipo.status = (equipo.status=="Activo" ? "Inactivo" : "Activo");
-        Data.put("equipo/"+equipo.id,{status:equipo.status});
+    $scope.changeUsuarioStatus = function(usuario){
+        usuario.status = (usuario.status=="Activo" ? "Inactivo" : "Activo");
+        Data.put("usuario/"+usuario.id,{status:usuario.status});
     };
-    $scope.deleteEquipo = function(equipo){
+    $scope.deleteUsuario = function(usuario){
         if(confirm("¿Esta seguro de eliminar el dato seleccionado?")){
-            Data.delete("equipo/"+equipo.id).then(function(result){
-                $scope.equipos = _.without($scope.equipos, _.findWhere($scope.equipos, {id:equipo.id}));
+            Data.delete("usuario/"+usuario.id).then(function(result){
+                $scope.usuarios = _.without($scope.usuarios, _.findWhere($scope.usuarios, {id:usuario.id}));
             });
         }
     };
     $scope.open = function (p,size) {
         var modalInstance = $modal.open({
-          templateUrl: 'partials/equipoEdit.html',
-          controller: 'equipoEditCtrl',
+          templateUrl: 'partials/usuarioEdit.html',
+          controller: 'usuarioEditCtrl',
           size: size,
           resolve: {
             item: function () {
@@ -28,11 +28,14 @@ app.controller('equipoCtrl', function ($scope, $modal, $filter, Data) {
         });
         modalInstance.result.then(function(selectedObject) {
             if(selectedObject.save == "insert"){
-                $scope.equipos.push(selectedObject);
-                $scope.equipos = $filter('orderBy')($scope.equipos, 'id', 'reverse');
+                $scope.usuarios.push(selectedObject);
+                $scope.usuarios = $filter('orderBy')($scope.usuarios, 'id', 'reverse');
             }else if(selectedObject.save == "update"){
                 p.nombre = selectedObject.nombre;
-                p.imagen = selectedObject.imagen;
+                p.correo = selectedObject.correo;
+                p.usuario = selectedObject.usuario;
+                p.clave = selectedObject.clave;
+
             }
         });
     };
@@ -40,7 +43,7 @@ app.controller('equipoCtrl', function ($scope, $modal, $filter, Data) {
  $scope.columns = [
                     {text:"ID",predicate:"id",sortable:true,dataType:"number"},
                     {text:"Nombre",predicate:"nombre",sortable:true},
-                    {text:"",predicate:"imagen",sortable:true,dataType:"image"},
+                    {text:"Correo",predicate:"correo",sortable:true},
                     {text:"Status",predicate:"status",sortable:true},
                     {text:"Acción",predicate:"",sortable:false}
                 ];
@@ -48,9 +51,9 @@ app.controller('equipoCtrl', function ($scope, $modal, $filter, Data) {
 });
 
 
-app.controller('equipoEditCtrl', function ($scope, $modalInstance, item, Data) {
+app.controller('usuarioEditCtrl', function ($scope, $modalInstance, item, Data) {
 
-  $scope.equipo = angular.copy(item);
+  $scope.usuario = angular.copy(item);
         
         $scope.cancel = function () {
             $modalInstance.dismiss('Close');
@@ -60,26 +63,26 @@ app.controller('equipoEditCtrl', function ($scope, $modalInstance, item, Data) {
 
         var original = item;
         $scope.isClean = function() {
-            return angular.equals(original, $scope.equipo);
+            return angular.equals(original, $scope.usuario);
         }
-        $scope.saveEquipo = function (equipo) {
-            equipo.uid = $scope.uid;
-            if(equipo.id > 0){
-                Data.put('equipo/'+equipo.id, equipo).then(function (result) {
+        $scope.saveUsuario = function (usuario) {
+            usuario.uid = $scope.uid;
+            if(usuario.id > 0){
+                Data.put('usuario/'+usuario.id, usuario).then(function (result) {
                     if(result.status != 'error'){
-                        var x = angular.copy(equipo);
+                        var x = angular.copy(usuario);
                         x.save = 'update';
                         $modalInstance.close(x);
+       
                     }else{
                         console.log(result);
-                        console.log(data.message);
                     }
                 });
             }else{
-                equipo.status = 'Activo';
-                Data.post('equipo', equipo).then(function (result) {
+                usuario.status = 'Activo';
+                Data.post('usuario', usuario).then(function (result) {
                     if(result.status != 'error'){
-                        var x = angular.copy(equipo);
+                        var x = angular.copy(usuario);
                         x.save = 'insert';
                         x.id = result.data;
                         $modalInstance.close(x);

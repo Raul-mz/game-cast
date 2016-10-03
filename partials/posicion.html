@@ -14,7 +14,7 @@
     
     <tr><th ng-repeat="c in columns">{{c.text}}</th></tr>
 
-    <tr ng-repeat="c in posicions | orderBy:'-id'" id="{{c.id}}" animate-on-change='c.id' ng-animate=" 'animate'">
+    <tr ng-repeat="c in posicions | orderBy:'-jj'" id="{{c.jj}}" animate-on-change='c.jj' ng-animate=" 'animate'">
         <td>{{c.loguito}}</td><td>{{c.jj}}</td><td>{{c.jg}}</td><td>{{c.jp}}</td><td>{{c.div}}</td><td>{{c.ave}}</td>
                 <td>
             <button class="btn" ng-class="{Activo:'btn-success', Inactivo:''}[c.status]" ng-click="changePosicionStatus(c);">{{c.status}}</button>

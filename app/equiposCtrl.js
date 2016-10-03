@@ -31,7 +31,7 @@ app.controller('equiposCtrl', function ($scope, $modal, $filter, Data) {
                 $scope.jugadas = $filter('orderBy')($scope.jugadas, 'id', 'reverse');
             }else if(selectedObject.save == "update"){
                 p.nombre = selectedObject.nombre;
-                p.logo = selectedObject.logo;
+                p.imagen = selectedObject.imagen;
             }
         });
     };
@@ -39,7 +39,7 @@ app.controller('equiposCtrl', function ($scope, $modal, $filter, Data) {
  $scope.columns = [
                     {text:"ID",predicate:"id",sortable:true,dataType:"number"},
                     {text:"Nombre",predicate:"nombre",sortable:true},
-                    {text:"Logo",predicate:"logo",sortable:true,dataType:"image/png"},
+                    {text:"",predicate:"imagen",sortable:true,dataType:"image/PNG"},
                     {text:"Status",predicate:"status",sortable:true},
                     {text:"Acción",predicate:"",sortable:false}
                 ];
